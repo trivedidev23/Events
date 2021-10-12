@@ -1,10 +1,17 @@
 import React from "react";
+import { Fragment } from "react";
+import { Container } from "semantic-ui-react";
+import EventDashboard from "./components/layout/EventDashboard/EventDashboard";
+import Navbar from "./components/layout/Navbar/Navbar";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Re-vent</h1>
-    </div>
+    <Fragment>
+      <Navbar />
+      <Container className="main">
+        <EventDashboard />
+      </Container>
+    </Fragment>
   );
 }
 
