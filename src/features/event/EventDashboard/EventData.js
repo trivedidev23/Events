@@ -1,14 +1,8 @@
-import cuid from "cuid";
-import React, { useState } from "react";
-import { Button, Grid } from "semantic-ui-react";
-import EventForm from "../EventForm/EventForm";
-import EventList from "../EventList/EventList";
-
-const eventsFromDashboard = [
+export const eventsFromDashBoard = [
   {
     id: "1",
     title: "Trip to Tower of London",
-    date: "2018-03-27T11:00:00+00:00",
+    date: "2018-03-27",
     category: "culture",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.",
@@ -32,7 +26,7 @@ const eventsFromDashboard = [
   {
     id: "2",
     title: "Trip to Punch and Judy Pub",
-    date: "2018-03-28T14:00:00+00:00",
+    date: "2018-03-28",
     category: "drinks",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.",
@@ -54,38 +48,3 @@ const eventsFromDashboard = [
     ],
   },
 ];
-
-const EventDashboard = () => {
-  const [events, setEvents] = useState(eventsFromDashboard);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleCreateEvent = (newEvent) => {
-    newEvent.id = cuid();
-    newEvent.hostPhotoURL = "/images/user.png";
-    setEvents([...events, newEvent]);
-    setIsOpen(false);
-    console.log(newEvent);
-  };
-
-  const handleIsOpenToggle = (e) => {
-    setIsOpen(!isOpen);
-  };
-  return (
-    <Grid>
-      <Grid.Column width={10}>
-        <EventList events={events} />
-      </Grid.Column>
-      <Grid.Column width={6}>
-        <Button positive onClick={handleIsOpenToggle} content="Create Event" />
-        {isOpen && (
-          <EventForm
-            CreateEvent={handleCreateEvent}
-            cancelFormOpen={handleIsOpenToggle}
-          />
-        )}
-      </Grid.Column>
-    </Grid>
-  );
-};
-
-export default EventDashboard;
