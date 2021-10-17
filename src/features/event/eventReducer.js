@@ -1,4 +1,6 @@
-export const eventsFromDashBoard = [
+import { CREATE_EVENT, DELETE_EVENT, UPDATE_EVENT } from "./eventConstants";
+
+const initialState = [
   {
     id: "1",
     title: "Trip to Tower of London",
@@ -48,3 +50,23 @@ export const eventsFromDashBoard = [
     ],
   },
 ];
+
+const eventReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CREATE_EVENT:
+      return [...state, action.payload.event];
+
+    case UPDATE_EVENT:
+      return [
+        ...state.filter((event) => event.id !== action.payload.event.id),
+        action.payload.event,
+      ];
+    case DELETE_EVENT:
+      return [...state.filter((event) => event.id !== action.payload.eventId)];
+
+    default:
+      return state;
+  }
+};
+
+export default eventReducer;
