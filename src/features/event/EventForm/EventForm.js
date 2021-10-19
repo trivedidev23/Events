@@ -14,6 +14,7 @@ import {
   isRequired,
 } from "revalidate";
 import DateInput from "../../../app/common/form/DateInput";
+// import PlacesInput from "../../../app/common/form/PlacesInput";
 
 const validate = combineValidators({
   title: isRequired({ message: "The Event Title is required." }),

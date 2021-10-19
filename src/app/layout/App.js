@@ -6,6 +6,7 @@ import EventDashboard from "../../features/event/EventDashboard/EventDashboard";
 import EventDetailedpage from "../../features/event/EventDetailed/EventDetailedpage";
 import EventForm from "../../features/event/EventForm/EventForm";
 import HomePage from "../../features/home/HomePage";
+import ModalManager from "../../features/modals/ModalManager";
 import NavBar from "../../features/nav/Navbar/NavBar";
 import PeopleDashboard from "../../features/user/Peopledashboard/PeopleDashboard";
 import SettingDashboard from "../../features/user/settings/SettingDashboard";
@@ -14,6 +15,7 @@ import UserDetailed from "../../features/user/UserDetailed/UserDetailed";
 function App(props) {
   return (
     <Fragment>
+      <ModalManager />
       <Route path="/" exact component={HomePage} />
       <Route
         path="/(.+)"
