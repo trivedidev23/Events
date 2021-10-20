@@ -5,13 +5,27 @@ import { BrowserRouter } from "react-router-dom";
 import ScrollToTop from "./app/common/Utils/ScrollToTop";
 import App from "./app/layout/App";
 import { configureStore } from "./app/store/ConfigureStore";
-import { loadEvent } from "./features/event/eventActions";
 import "./index.css";
 import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 import ReduxToastr from "react-redux-toastr";
+import { createFirestoreInstance } from "redux-firestore";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import firebase from "./fb/fbConfig";
 
 const store = configureStore();
-store.dispatch(loadEvent());
+
+const rrfConfig = {
+  userProfiles: "users",
+  attachAuthIsReady: true,
+  useFirestoreForProfile: true,
+};
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance, // <- needed if using firestore
+};
 
 ReactDOM.render(
   <BrowserRouter>
@@ -22,7 +36,9 @@ ReactDOM.render(
         transitionIn="fadeIn"
         transitionOut="fadeOut"
       />
-      <App />
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <App />
+      </ReactReduxFirebaseProvider>
     </Provider>
   </BrowserRouter>,
 

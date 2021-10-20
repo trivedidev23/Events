@@ -1,3 +1,4 @@
+import { format, parseISO } from "date-fns";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Header, Image, Item, Segment } from "semantic-ui-react";
@@ -34,7 +35,9 @@ const EventDetailedHeader = ({ event }) => {
                   content={event.title}
                   style={{ color: "white" }}
                 />
-                <p>{event.date}</p>
+                <p>
+                  {event.date && format(parseISO(event.date), "EEEE do LLL")}
+                </p>
                 <p>
                   Hosted by <strong>{event.hostedBy}</strong>
                 </p>
