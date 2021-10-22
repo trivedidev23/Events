@@ -18,6 +18,7 @@ const rrfConfig = {
   userProfiles: "users",
   attachAuthIsReady: true,
   useFirestoreForProfile: true,
+  updateProfileOnLogin: false,
 };
 
 const rrfProps = {
@@ -27,20 +28,30 @@ const rrfProps = {
   createFirestoreInstance, // <- needed if using firestore
 };
 
-ReactDOM.render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <ScrollToTop />
-      <ReduxToastr
-        position="bottom-right"
-        transitionIn="fadeIn"
-        transitionOut="fadeOut"
-      />
-      <ReactReduxFirebaseProvider {...rrfProps}>
-        <App />
-      </ReactReduxFirebaseProvider>
-    </Provider>
-  </BrowserRouter>,
+let render = () => {
+  ReactDOM.render(
+    <BrowserRouter>
+      <Provider store={store}>
+        <ScrollToTop />
+        <ReduxToastr
+          position="bottom-right"
+          transitionIn="fadeIn"
+          transitionOut="fadeOut"
+        />
+        <ReactReduxFirebaseProvider {...rrfProps}>
+          <App />
+        </ReactReduxFirebaseProvider>
+      </Provider>
+    </BrowserRouter>,
 
-  document.getElementById("root")
-);
+    document.getElementById("root")
+  );
+};
+
+if (module.hot) {
+  module.hot.accept("./app/layout/App", () => {
+    setTimeout(render);
+  });
+}
+
+render();
