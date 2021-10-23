@@ -58,7 +58,6 @@ export const socialLogin =
         provider: selectedProvider,
         type: "popup",
       });
-      console.log(user);
       if (user.additionalUserInfo.isNewUser) {
         await firestore.set(`users/${user.user.uid}`, {
           displayName: user.profile.displayName,
