@@ -8,6 +8,7 @@ export const updateProfile =
     const firestore = getFirestore();
     console.log(user);
     var currUser = firebase.auth().currentUser;
+
     try {
       await firestore
         .collection("users")
@@ -28,4 +29,29 @@ export const updateProfile =
       // SubmissionError
       console.log(error);
     }
+  };
+
+export const getUserByEmail =
+  (email) =>
+  async (dispatch, getState, { getFirebase, getFirestore }) => {
+    console.log(email);
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+
+    firestore
+      .collection("users")
+      .get()
+      .then((querySnapshot) => {
+        const userArray = [];
+        querySnapshot.forEach((element) => {
+          var data = element.data();
+          userArray.push(data);
+        });
+
+        dispatch({
+          type: "LOAD_USER",
+          payload: userArray,
+        });
+      })
+      .catch((err) => {});
   };

@@ -5,8 +5,13 @@ import DateInput from "../../../app/common/form/DateInput";
 import TextInputs from "../../../app/common/form/TextInputs";
 import RadioInput from "../../../app/common/form/RadioInput";
 import { addYears } from "date-fns";
+import { getUserByEmail } from "../userActions";
+import { connect } from "react-redux";
 
 class BasicPage extends Component {
+  componentDidMount() {
+    this.props.getUserByEmail();
+  }
   render() {
     const { pristine, submitting, updateProfile, handleSubmit } = this.props;
     return (
@@ -68,6 +73,8 @@ class BasicPage extends Component {
   }
 }
 
-export default reduxForm({ form: "userProfile", enableReinitialize: true })(
-  BasicPage
-);
+export default reduxForm({
+  form: "userProfile",
+  enableReinitialize: true,
+  destroyOnUnmount: false,
+})(connect(null, { getUserByEmail })(BasicPage));

@@ -32,10 +32,12 @@ export const registerUser =
       console.log(createdUser);
       await createdUser.user.updateProfile({
         displayName: user.displayName,
+        email: user.email,
       });
       let newUser = {
         displayName: user.displayName,
         createdAt: firestore.FieldValue.serverTimestamp(),
+        email: user.email,
       };
       await firestore.set(`users/${createdUser.user.uid}`, { ...newUser });
       dispatch(closeModal());
