@@ -3,15 +3,40 @@ import { SubmissionError, reset } from "redux-form";
 import { toastr } from "react-redux-toastr";
 
 export const login = (creds) => {
-  return async (dispatch, getState, { getFirebase }) => {
+  return async (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
-
+    const firestore = getFirestore();
     try {
       await firebase
         .auth()
         .signInWithEmailAndPassword(creds.email, creds.password);
-
+      const user = firebase.auth().currentUser;
       dispatch(closeModal());
+
+      firestore
+        .collection("users")
+        .doc(`${user.uid}`)
+        .get()
+        .then((doc) => {
+          console.log("Document data:", doc);
+
+          if (doc.exists) {
+            console.log("Document data:", doc.data());
+            dispatch({
+              type: "LOGIN",
+              playload: doc.data(),
+            });
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+
+          // dispatch({
+          //   type: "LOAD_USER",
+          //   payload: userArray,
+          // });
+        })
+        .catch((err) => {});
     } catch (error) {
       throw new SubmissionError({
         _error: error.message,
@@ -85,4 +110,35 @@ export const updatePassword =
         _error: error.message,
       });
     }
+  };
+
+export const authUser =
+  (uid) =>
+  async (dispatch, { getFirestore }) => {
+    const firestore = getFirestore();
+    console.log(true);
+    firestore
+      .collection("users")
+      .doc(`${uid}`)
+      .get()
+      .then((doc) => {
+        console.log("Document data:", doc);
+
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          dispatch({
+            type: "LOGIN",
+            playload: doc.data(),
+          });
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+
+        // dispatch({
+        //   type: "LOAD_USER",
+        //   payload: userArray,
+        // });
+      })
+      .catch((err) => {});
   };

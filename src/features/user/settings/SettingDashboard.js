@@ -16,6 +16,7 @@ const SettingDashboard = ({
   user,
   updateProfile,
 }) => {
+  console.log(user);
   return (
     <Grid>
       <Grid.Column width={12}>

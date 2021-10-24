@@ -1,7 +1,10 @@
 import React from "react";
+import { useEffect } from "react";
 import { Fragment } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Switch, withRouter } from "react-router";
 import { Container } from "semantic-ui-react";
+import { authUser } from "../../features/auth/authActions";
 import EventDashboard from "../../features/event/EventDashboard/EventDashboard";
 import EventDetailedpage from "../../features/event/EventDetailed/EventDetailedpage";
 import EventForm from "../../features/event/EventForm/EventForm";
@@ -11,8 +14,17 @@ import NavBar from "../../features/nav/Navbar/NavBar";
 import PeopleDashboard from "../../features/user/Peopledashboard/PeopleDashboard";
 import SettingDashboard from "../../features/user/settings/SettingDashboard";
 import UserDetailed from "../../features/user/UserDetailed/UserDetailed";
-
+if (localStorage.getItem("userID")) {
+  console.log("object");
+  authUser(localStorage.getItem("userID"));
+}
 function App(props) {
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if (localStorage.getItem("userID")) {
+  //     authUser(localStorage.getItem("userID"));
+  //   }
+  // }, []);
   return (
     <Fragment>
       <ModalManager />

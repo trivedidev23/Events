@@ -11,6 +11,7 @@ import ReduxToastr from "react-redux-toastr";
 import { createFirestoreInstance } from "redux-firestore";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import firebase from "./fb/fbConfig";
+import { authUser } from "./features/auth/authActions";
 
 const store = configureStore();
 
