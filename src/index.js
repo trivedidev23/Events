@@ -15,7 +15,7 @@ import firebase from "./fb/fbConfig";
 const store = configureStore();
 
 const rrfConfig = {
-  userProfiles: "users",
+  userProfile: "users",
   attachAuthIsReady: true,
   useFirestoreForProfile: true,
   updateProfileOnLogin: false,

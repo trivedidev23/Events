@@ -27,7 +27,12 @@ const SettingDashboard = ({
               <BasicPage initialValues={user} updateProfile={updateProfile} />
             )}
           />
-          <Route path="/settings/about" component={AboutPage} />
+          <Route
+            path="/settings/about"
+            render={() => (
+              <AboutPage initialValues={user} updateProfile={updateProfile} />
+            )}
+          />
           <Route path="/settings/photos" component={PhotosPage} />
           <Route
             path="/settings/account"
@@ -56,7 +61,7 @@ const mapStateToProps = (state) => ({
   providerId:
     state.firebase.auth.isLoaded &&
     state.firebase.auth.providerData[0].providerId,
-  user: state.firebase.auth,
+  user: state.firebase.profile,
 });
 
 export default connect(mapStateToProps, actions)(SettingDashboard);
