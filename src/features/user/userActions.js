@@ -7,6 +7,7 @@ export const updateProfile =
     const firebase = getFirebase();
     const firestore = getFirestore();
     console.log(user);
+
     var currUser = firebase.auth().currentUser;
     try {
       await firestore
@@ -23,6 +24,28 @@ export const updateProfile =
           { merge: true }
         );
       await currUser.updateProfile(user);
+
+      firestore
+        .collection("users")
+        .doc(`${currUser.uid}`)
+        .get()
+        .then((doc) => {
+          const userArray = [];
+          console.log(user.uid);
+          if (doc.exists) {
+            dispatch({
+              type: "LOAD_USER",
+              payload: doc.data(),
+            });
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+
       toastr.success("Success", "Your Profile has been updated");
     } catch (error) {
       // SubmissionError
