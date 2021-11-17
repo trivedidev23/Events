@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   loading: false,
+  elementName: null,
 };
 
 const asyncReducer = (state = initialState, action) => {
@@ -14,16 +15,19 @@ const asyncReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+        elementName: action.payload,
       };
     case ASYNC_ACTION_FINISH:
       return {
         ...state,
         loading: false,
+        elementName: null,
       };
     case ASYNC_ACTION_ERROR:
       return {
         ...state,
         loading: false,
+        elementName: null,
       };
     default:
       return state;

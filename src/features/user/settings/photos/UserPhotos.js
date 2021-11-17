@@ -16,7 +16,7 @@ const UserPhotos = ({ profile, photos, deletePhoto, selectMainPhoto }) => {
 
       <Card.Group itemsPerRow={5}>
         <Card>
-          <Image src={profile.photoURL || "images/user.png"} />
+          <Image src={profile.photoURL || "/images/user.png"} />
           <Button positive>Main Photo</Button>
         </Card>
         {photos &&
