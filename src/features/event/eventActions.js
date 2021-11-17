@@ -1,4 +1,4 @@
-import { DELETE_EVENT, FETCH_EVENT, UPDATE_EVENT } from "./eventConstants";
+import { DELETE_EVENT, FETCH_EVENT } from "./eventConstants";
 import { toastr } from "react-redux-toastr";
 import { fetchSampleData } from "../../app/sample data/MockAPI";
 import {

@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import React from "react";
-import { Button, Grid, Icon, Segment } from "semantic-ui-react";
+import { Grid, Icon, Segment } from "semantic-ui-react";
 
 const EventDetailedInfo = ({ event }) => {
   return (
